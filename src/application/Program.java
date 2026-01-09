@@ -1,13 +1,16 @@
 package application;
 
+import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.toMap;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toMap;
-
-import java.util.Map;
-
 import model.entities.Board;
+import model.entities.Space;
 
 public class Program {
 	
@@ -70,9 +73,25 @@ public class Program {
 		}
 	}
 
-	private static Object startGame(Map<String, String> positions) {
-		// TODO Auto-generated method stub
-		return null;
+	private static void startGame(Map<String, String> positions) {
+		if (nonNull(board)) {
+			System.out.println("The game has already started");
+		}
+		
+		List<List<Space>> spaces = new ArrayList<>();
+		for (int i=0; i<BOARD_LIMIT; i++) {
+			spaces.add(new ArrayList<>());
+			for (int j=0; j<BOARD_LIMIT; j++) {
+				var positionConfig = positions.get(String.format("%s","%s",i, j));
+                var expected = Integer.parseInt(positionConfig.split(",")[0]);
+                var fixed = Boolean.parseBoolean(positionConfig.split(",")[1]);
+                var currentSpace = new Space(expected, fixed);
+                spaces.get(1).add(currentSpace);
+			}
+		}
+		
+		board = new Board(spaces);
+		System.out.println("The game is ready to begin");
 	}
 
 	private static Object inputNumber() {
