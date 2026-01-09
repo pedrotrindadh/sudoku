@@ -2,14 +2,14 @@ package model.entities;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static model.GameStatusEnum.COMPLETE;
-import static model.GameStatusEnum.INCOMPLETE;
-import static model.GameStatusEnum.NON_STARTED;
+import static model.enums.GameStatusEnum.COMPLETE;
+import static model.enums.GameStatusEnum.INCOMPLETE;
+import static model.enums.GameStatusEnum.NON_STARTED;
 
 import java.util.Collection;
 import java.util.List;
 
-import model.GameStatusEnum;
+import model.enums.GameStatusEnum;
 
 public class Board {
 
@@ -67,5 +67,4 @@ public class Board {
     public boolean gameIsFinished(){
         return !hasErrors() && getStatus().equals(COMPLETE);
     }
-
 }
