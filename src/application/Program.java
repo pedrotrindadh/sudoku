@@ -182,9 +182,21 @@ public class Program {
 		}
 	}
 
-	private static Object finishGame() {
-		// TODO Auto-generated method stub
-		return null;
+	private static void finishGame() {
+		if (isNull(board)) {
+			System.out.println("The game has not yet started");
+			return;
+		}
+		
+		if (board.gameIsFinished()){
+            System.out.println("Congratulantion!!! You completed.");
+            showCurrentGame();
+            board = null;
+        } else if (board.hasErrors()) {
+            System.out.println("Your game contains errors; check your board and adjust it.");
+        } else {
+            System.out.println("You still need to fill in some space.");
+        }
 	}
 	
 	private static int runUntilGetValidNumber(final int min, final int max) {
