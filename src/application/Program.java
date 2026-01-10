@@ -164,9 +164,22 @@ public class Program {
 		}
 	}
 
-	private static Object clearGame() {
-		// TODO Auto-generated method stub
-		return null;
+	private static void clearGame() {
+		if (isNull(board)) {
+			System.out.println("The game has not yet started");
+			return;
+		}
+		
+		System.out.println("Are you sure want to clear your game and lose all progress?");
+		var confirm = sc.next();
+		while (!confirm.equalsIgnoreCase("yes") || !confirm.equalsIgnoreCase("no")) {
+			System.out.println("Please indicate 'yes' or 'no'");
+			confirm = sc.next();
+			
+			if (confirm.equalsIgnoreCase("yes")) {
+				board.reset();
+			}
+		}
 	}
 
 	private static Object finishGame() {
