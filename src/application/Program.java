@@ -115,9 +115,21 @@ public class Program {
 		
 	}
 
-	private static Object removeNumber() {
-		// TODO Auto-generated method stub
-		return null;
+	private static void removeNumber() {
+		if (isNull(board)) {
+			System.out.println("The game has not yet started.");
+			return;
+		}
+		
+		System.out.println("Specify the column where the number will be inserted:");
+		var col = runUntilGetValidNumber(0,8);
+		System.out.println("Specify the row where the number will be inserted:");
+		var row = runUntilGetValidNumber(0,8);
+		System.out.printf("Enter the number that will go in position [%s,%s]\n", col, row);
+		var value = runUntilGetValidNumber(1, 9);
+		if (!board.clearValue(col, row)){
+            System.out.printf("The position [%s,%s] has a fixed value\n", col, row);
+        }
 	}
 
 	private static Object showCurrentGame() {
