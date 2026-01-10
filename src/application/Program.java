@@ -149,9 +149,19 @@ public class Program {
 		}	
 	}
 
-	private static Object showGameStatus() {
-		// TODO Auto-generated method stub
-		return null;
+	private static void showGameStatus() {
+		if (isNull(board)) {
+			System.out.println("The game has not yet started");
+			return;
+		}
+		
+		System.out.println("Your current game status:  " + board.getStatus().getLabel());
+		if(board.hasErrors()) {
+			System.out.println("The game contains errors");
+		}
+		else {
+			System.out.println("The game contains no errors.");
+		}
 	}
 
 	private static Object clearGame() {
