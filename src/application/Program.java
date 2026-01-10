@@ -3,6 +3,7 @@ package application;
 import static java.util.Objects.nonNull;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toMap;
+import static util.BoardTemplate.BOARD_TEMPLATE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,7 @@ public class Program {
 
 	private static void inputNumber() {
 		if (isNull(board)) {
-			System.out.println("The game has not yet started.");
+			System.out.println("The game has not yet started");
 			return;
 		}
 		
@@ -117,7 +118,7 @@ public class Program {
 
 	private static void removeNumber() {
 		if (isNull(board)) {
-			System.out.println("The game has not yet started.");
+			System.out.println("The game has not yet started");
 			return;
 		}
 		
@@ -126,15 +127,26 @@ public class Program {
 		System.out.println("Specify the row where the number will be inserted:");
 		var row = runUntilGetValidNumber(0,8);
 		System.out.printf("Enter the number that will go in position [%s,%s]\n", col, row);
-		var value = runUntilGetValidNumber(1, 9);
 		if (!board.clearValue(col, row)){
             System.out.printf("The position [%s,%s] has a fixed value\n", col, row);
         }
 	}
 
-	private static Object showCurrentGame() {
-		// TODO Auto-generated method stub
-		return null;
+	private static void showCurrentGame() {
+		if (isNull(board)) {
+			System.out.println("The game has not yet started");
+			return;
+		}
+		
+		var args = new Object[81];
+		var argPos = 0;
+		for (int i=0 ; i<BOARD_LIMIT; i++) {
+			for (var col: board.getSpaces()) {
+				args[argPos ++] = " " + ((isNull(col.get(i).getActual())) ? " " : col.get(i).getActual());
+			}
+			System.out.println("Your current game:");
+			System.out.printf((BOARD_TEMPLATE) + "\n", args);
+		}	
 	}
 
 	private static Object showGameStatus() {
