@@ -1,6 +1,7 @@
 package application;
 
 import static java.util.Objects.nonNull;
+import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toMap;
 
 import java.util.ArrayList;
@@ -76,6 +77,7 @@ public class Program {
 	private static void startGame(Map<String, String> positions) {
 		if (nonNull(board)) {
 			System.out.println("The game has already started");
+			return;
 		}
 		
 		List<List<Space>> spaces = new ArrayList<>();
@@ -94,9 +96,23 @@ public class Program {
 		System.out.println("The game is ready to begin");
 	}
 
-	private static Object inputNumber() {
-		// TODO Auto-generated method stub
-		return null;
+	private static void inputNumber() {
+		if (isNull(board)) {
+			System.out.println("The game has not yet started.");
+			return;
+		}
+		
+		System.out.println("Specify the column where the number will be inserted:");
+		var col = runUntilGetValidNumber(0,8);
+		System.out.println("Specify the row where the number will be inserted:");
+		var row = runUntilGetValidNumber(0,8);
+		System.out.printf("Enter the number that will go in position [%s,%s]\n", col, row);
+		var value = runUntilGetValidNumber(1, 9);
+		if (!board.changeValue(col, row, value)) {
+			System.out.printf("The position [%s,%s] has a fixed value\n", col, row);
+		}
+		
+		
 	}
 
 	private static Object removeNumber() {
@@ -122,5 +138,14 @@ public class Program {
 	private static Object finishGame() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private static int runUntilGetValidNumber(final int min, final int max) {
+		var current = sc.nextInt();
+		if (current < min || current > max) {
+			System.out.printf("Enter a number between %s and %s\n", min, max);
+			current = sc.nextInt();
+		}
+		return current;
 	}
 }
